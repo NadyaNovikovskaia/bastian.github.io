@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bastian - See the City Through the Stories You Love</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">Bastian</div>
+            <div class="nav-links">
+                <a href="#how-it-works">How It Works</a>
+                <a href="#demo">Try Demo</a>
+                <a href="#footer">Cities</a>
+                <button class="btn-primary-small" onclick="scrollToCTA()">Get Early Access</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-headline">See the City Through the Stories You Love</h1>
+                <p class="hero-subheadline">
+                    Discover books, movies, and TV series set where you are. Explore real locations from fictional moments with self-guided story walks—at your own pace, on your own terms.
+                </p>
+                
+                <div class="pain-points">
+                    <div class="pain-point">
+                        <span class="pain-icon">😔</span>
+                        <p>"I'm tired of generic Top 10 lists that feel the same everywhere"</p>
+                    </div>
+                    <div class="pain-point">
+                        <span class="pain-icon">🤔</span>
+                        <p>"I don't know which stories happened here—or where to find those places"</p>
+                    </div>
+                    <div class="pain-point">
+                        <span class="pain-icon">😤</span>
+                        <p>"Tours are too rigid, too guided, never match my pace or interests"</p>
+                    </div>
+                </div>
+
+                <div class="hero-cta">
+                    <button class="btn-primary" id="cta-main">Get Early Access</button>
+                    <button class="btn-secondary" onclick="scrollToDemo()">Try the Demo</button>
+                </div>
+
+                <div class="hero-disclosure">
+                    <p class="disclosure-text">
+                        <span class="icon">📍</span> We use your location to show stories nearby. You can turn this off anytime or choose a city manually.
+                    </p>
+                    <p class="disclosure-text">
+                        <span class="icon">🍪</span> We use cookies and analytics to improve your experience. <a href="#privacy">Privacy Policy</a>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="hero-image-container">
+                    <div class="floating-card card-1">
+                        <div class="card-mini">
+                            <span class="emoji">📖</span>
+                            <span class="text">Midnight in Paris</span>
+                        </div>
+                    </div>
+                    <div class="floating-card card-2">
+                        <div class="card-mini">
+                            <span class="emoji">🎬</span>
+                            <span class="text">Before Sunrise</span>
+                        </div>
+                    </div>
+                    <div class="floating-card card-3">
+                        <div class="card-mini">
+                            <span class="emoji">📺</span>
+                            <span class="text">Sherlock</span>
+                        </div>
+                    </div>
+                    <div class="map-overlay">
+                        <svg viewBox="0 0 400 300" class="map-illustration">
+                            <circle cx="100" cy="100" r="4" fill="#FF6B6B" class="pin-pulse"/>
+                            <circle cx="250" cy="150" r="4" fill="#4ECDC4" class="pin-pulse"/>
+                            <circle cx="180" cy="200" r="4" fill="#FFE66D" class="pin-pulse"/>
+                            <path d="M 50 50 Q 150 100 250 50" stroke="#E0E0E0" stroke-width="1" fill="none" opacity="0.3"/>
+                            <path d="M 100 150 Q 200 180 300 150" stroke="#E0E0E0" stroke-width="1" fill="none" opacity="0.3"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="how-it-works" class="features">
+        <div class="container">
+            <h2 class="section-title">How Bastian Works</h2>
+            <p class="section-subtitle">Transform your city exploration into an immersive story experience</p>
+
+            <div class="features-grid">
+                <!-- Feature 1: Discovery -->
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3 class="feature-name">Personalized Story Discovery</h3>
+                    <p class="feature-what">
+                        Bastian learns your interests and instantly shows you which books, movies, and TV series are connected to your current city—without prior research.
+                    </p>
+                    <p class="feature-why">
+                        <strong>Why it matters:</strong> You no longer need to remember which book was set in Prague or Google "movies filmed in Paris." Bastian does the work.
+                    </p>
+                    <div class="feature-example">
+                        <div class="mini-ui">
+                            <div class="tabs-preview">
+                                <span class="tab active">📖 Books</span>
+                                <span class="tab">🎬 Movies</span>
+                                <span class="tab">📺 TV Series</span>
+                            </div>
+                            <div class="search-preview">
+                                <input type="text" placeholder="Search by title or place..." disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Immersion -->
+                <div class="feature-card featured">
+                    <div class="feature-icon">✨</div>
+                    <h3 class="feature-name">Self-Guided Immersive Exploration</h3>
+                    <p class="feature-what">
+                        Transform story locations into flexible, self-paced "Immerse" guides—replacing rigid tour schedules with narrative-driven moments you control.
+                    </p>
+                    <p class="feature-why">
+                        <strong>Why it matters:</strong> Visit one location or ten, pause for coffee, skip what doesn't interest you, and immerse only in moments that resonate.
+                    </p>
+                    <div class="feature-example">
+                        <div class="immerse-preview">
+                            <div class="location-badge">📍 0.3 km away</div>
+                            <div class="immerse-actions">
+                                <button class="mini-btn">Directions</button>
+                                <button class="mini-btn">Check-In</button>
+                                <button class="mini-btn">Next Location</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Recommendations -->
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-name">Story-Aware Local Recommendations</h3>
+                    <p class="feature-what">
+                        Get suggestions for nearby restaurants, cafés, museums, and experiences that match the story's atmosphere—with clearly labeled sponsored placements.
+                    </p>
+                    <p class="feature-why">
+                        <strong>Why it matters:</strong> Dine where the character might have eaten, explore museums tied to the story's backdrop, or join themed experiences.
+                    </p>
+                    <div class="feature-example">
+                        <div class="recommendation-card-preview">
+                            <span class="sponsored-badge">Sponsored</span>
+                            <p class="rec-text">Café Renaissance—traditional dishes from the novel's era</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo Section -->
+    <section id="demo" class="demo-section">
+        <div class="container">
+            <h2 class="section-title">See How It Works—Right Now</h2>
+            <p class="demo-instruction">
+                Tap your interests, allow location (or choose a city), and discover story moments around you in seconds.
+            </p>
+
+            <div class="demo-container">
+                <!-- Demo UI -->
+                <div class="demo-ui" id="demoUI">
+                    <!-- Step 1: Interest Selection -->
+                    <div class="demo-step active" id="step1">
+                        <h3 class="demo-step-title">What stories do you love?</h3>
+                        <div class="interest-grid">
+                            <button class="interest-card" data-interest="books">
+                                <span class="interest-icon">📖</span>
+                                <span class="interest-label">Books</span>
+                                <span class="interest-count">248 stories</span>
+                            </button>
+                            <button class="interest-card" data-interest="movies">
+                                <span class="interest-icon">🎬</span>
+                                <span class="interest-label">Movies</span>
+                                <span class="interest-count">112 stories</span>
+                            </button>
+                            <button class="interest-card" data-interest="tv">
+                                <span class="interest-icon">📺</span>
+                                <span class="interest-label">TV Series</span>
+                                <span class="interest-count">87 stories</span>
+                            </button>
+                        </div>
+                        <button class="skip-btn" onclick="nextStep(2)">Skip—explore everything</button>
+                    </div>
+
+                    <!-- Step 2: Location Permission -->
+                    <div class="demo-step" id="step2">
+                        <h3 class="demo-step-title">See stories near you</h3>
+                        <p class="helper-text">
+                            Bastian uses your location to show books, movies, and TV series set nearby. You can turn this off anytime.
+                        </p>
+                        <div class="location-buttons">
+                            <button class="btn-primary" onclick="nextStep(3)">Allow Location</button>
+                            <button class="btn-secondary" onclick="showCityPicker()">Choose City Manually</button>
+                        </div>
+                        <div class="city-picker hidden" id="cityPicker">
+                            <input type="text" placeholder="Search for a city..." class="city-search">
+                            <div class="city-list">
+                                <button class="city-option" onclick="selectCity('London')">London</button>
+                                <button class="city-option" onclick="selectCity('Paris')">Paris</button>
+                                <button class="city-option" onclick="selectCity('New York')">New York</button>
+                                <button class="city-option" onclick="selectCity('Prague')">Prague</button>
+                                <button class="city-option" onclick="selectCity('Rome')">Rome</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Main Discovery Interface -->
+                    <div class="demo-step" id="step3">
+                        <div class="discovery-interface">
+                            <div class="search-bar">
+                                <input type="text" placeholder="Search by title or place..." class="main-search">
+                                <button class="filter-btn">🔽 Filter</button>
+                            </div>
+
+                            <div class="map-preview collapsed" id="mapPreview">
+                                <button class="expand-map-btn" onclick="expandMap()">Expand Map</button>
+                                <div class="mini-map">
+                                    <svg viewBox="0 0 300 150">
+                                        <circle cx="80" cy="60" r="6" fill="#FF6B6B"/>
+                                        <circle cx="180" cy="80" r="6" fill="#4ECDC4"/>
+                                        <circle cx="220" cy="50" r="6" fill="#FFE66D"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div class="tabs">
+                                <button class="tab active" data-tab="books">📖 Books</button>
+                                <button class="tab" data-tab="movies">🎬 Movies</button>
+                                <button class="tab" data-tab="tv">📺 TV Series</button>
+                            </div>
+
+                            <div class="title-cards">
+                                <div class="title-card" onclick="nextStep(4)">
+                                    <div class="title-cover">
+                                        <div class="cover-placeholder book-cover"></div>
+                                    </div>
+                                    <div class="title-info">
+                                        <h4 class="title-name">The Night Circus</h4>
+                                        <p class="title-meta">Erin Morgenstern • 2011 • 📖</p>
+                                        <p class="title-desc">A gothic tale of magic and romance set in Victorian London...</p>
+                                        <div class="title-actions">
+                                            <button class="icon-btn" title="View story locations">📍</button>
+                                            <button class="icon-btn" title="Add to favorites">♡</button>
+                                            <button class="immerse-btn">✨ Immerse</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="title-card">
+                                    <div class="title-cover">
+                                        <div class="cover-placeholder movie-cover"></div>
+                                    </div>
+                                    <div class="title-info">
+                                        <h4 class="title-name">Before Sunrise</h4>
+                                        <p class="title-meta">Richard Linklater • 1995 • 🎬</p>
+                                        <p class="title-desc">Two strangers meet on a train and spend one magical night in Vienna...</p>
+                                        <div class="title-actions">
+                                            <button class="icon-btn">📍</button>
+                                            <button class="icon-btn">♡</button>
+                                            <button class="immerse-btn">✨ Immerse</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="title-card sponsored-card">
+                                    <span class="sponsored-label">Sponsored</span>
+                                    <div class="title-cover">
+                                        <div class="cover-placeholder tv-cover"></div>
+                                    </div>
+                                    <div class="title-info">
+                                        <h4 class="title-name">Sherlock</h4>
+                                        <p class="title-meta">BBC • 2010-2017 • 📺</p>
+                                        <p class="title-desc">Modern adaptation of Arthur Conan Doyle's detective stories in London...</p>
+                                        <div class="title-actions">
+                                            <button class="icon-btn">📍</button>
+                                            <button class="icon-btn">♡</button>
+                                            <button class="immerse-btn">✨ Immerse</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Immerse Page -->
+                    <div class="demo-step" id="step4">
+                        <div class="immerse-page">
+                            <button class="back-btn" onclick="nextStep(3)">← Back to stories</button>
+                            
+                            <div class="location-header">
+                                <h3>Blackfriars Bridge</h3>
+                                <span class="distance-badge">📍 0.3 km away</span>
+                            </div>
+
+                            <div class="immerse-content">
+                                <div class="context-section">
+                                    <p class="context-paragraph">
+                                        Blackfriars Bridge, spanning the Thames since 1869, connects the City of London to Southwark. In <em>The Night Circus</em>, this bridge becomes a liminal space where the protagonist experiences a moment of clarity—mirroring the bridge's own role as a passage between two worlds. The author drew on the bridge's Victorian Gothic architecture to evoke themes of transformation and magic.
+                                    </p>
+                                    <p class="scene-summary">
+                                        <strong>Scene:</strong> Here, the protagonist pauses mid-crossing, gazing at the Thames, sensing the circus's magic awakening in the city around them.
+                                    </p>
+                                </div>
+
+                                <div class="immerse-image">
+                                    <div class="ai-generated-placeholder"></div>
+                                    <span class="ai-label">Image: AI-generated</span>
+                                </div>
+
+                                <div class="immerse-actions">
+                                    <button class="btn-primary">🧭 Directions</button>
+                                    <button class="btn-secondary">✓ Check-In</button>
+                                </div>
+
+                                <div class="feedback-section">
+                                    <p class="feedback-prompt">Did this moment resonate?</p>
+                                    <div class="feedback-buttons">
+                                        <button class="feedback-btn">👍</button>
+                                        <button class="feedback-btn">👎</button>
+                                    </div>
+                                </div>
+
+                                <button class="next-location-btn">Next Location →</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-credibility">
+                    <p>✨ Bastian connects real places to story contexts and guides you moment by moment, blending narrative immersion with flexible self-exploration.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Live the Story?</h2>
+            <p>Join the waitlist and be among the first to experience cities through the stories you love.</p>
+            
+            <form class="waitlist-form" id="waitlistForm">
+                <input type="email" placeholder="Enter your email" class="email-input" required>
+                <button type="submit" class="btn-primary">Get Early Access</button>
+            </form>
+            
+            <div class="form-success hidden" id="formSuccess">
+                <p>✓ Thank you! You're on the list. We'll be in touch soon.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer" class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>Bastian</h3>
+                    <p>Experience cities through the stories you love</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#demo">Demo</a>
+                    <a href="#">Cities</a>
+                    <a href="#">Partners</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <a href="#">About</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Careers</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <a href="#" id="privacy">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+
+            <div class="footer-disclosures">
+                <p class="disclosure">
+                    <strong>Sponsorship:</strong> Some local recommendations are sponsored and clearly labeled as "Sponsored" within the app.
+                </p>
+                <p class="disclosure">
+                    <strong>Affiliates:</strong> Some links to book/film/series platforms may be affiliate links.
+                </p>
+                <p class="disclosure">
+                    <strong>Data Use:</strong> We collect anonymous usage data and use your location to show nearby stories. You can turn off location access anytime. See our <a href="#privacy">Privacy Policy</a>.
+                </p>
+                <p class="disclosure">
+                    <strong>AI Transparency:</strong> Scene visualizations in "Immerse" guides are AI-generated to enhance your experience.
+                </p>
+            </div>
+
+            <div class="footer-copyright">
+                <p>© 2026 Bastian. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
