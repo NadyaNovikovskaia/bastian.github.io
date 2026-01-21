@@ -14,28 +14,58 @@
 
     <!--  Clarity lilia.ftor  -->
     <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "v51pbngtlm");
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () {
+                (c[a].q = c[a].q || []).push(arguments)
+            };
+            t = l.createElement(r);
+            t.async = 1;
+            t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0];
+            y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "v51pbngtlm");
     </script>
     <!--  Clarity lilia.ftor  -->
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-99MHLJW6TW"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
 
-      gtag('config', 'G-99MHLJW6TW');
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-99MHLJW6TW');
     </script>
     <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">     (function(m,e,t,r,i,k,a){         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};         m[i].l=1*new Date();         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)     })(window, document,'script','https://mc.webvisor.org/metrika/tag_ww.js?id=106374648', 'ym');      ym(106374648, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true}); </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/106374648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <script type="text/javascript">     (function (m, e, t, r, i, k, a) {
+        m[i] = m[i] || function () {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        m[i].l = 1 * new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+            if (document.scripts[j].src === r) {
+                return;
+            }
+        }
+        k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+    })(window, document, 'script', 'https://mc.webvisor.org/metrika/tag_ww.js?id=106374648', 'ym');
+    ym(106374648, 'init', {
+        ssr: true,
+        webvisor: true,
+        clickmap: true,
+        ecommerce: "dataLayer",
+        accurateTrackBounce: true,
+        trackLinks: true
+    }); </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/106374648" style="position:absolute; left:-9999px;" alt=""/></div>
+    </noscript>
     <!-- /Yandex.Metrika counter -->
     <script async
-        src="https://js.stripe.com/v3/buy-button.js">
+            src="https://js.stripe.com/v3/buy-button.js">
     </script>
 </head>
 <body>
@@ -57,8 +87,14 @@
             adventure in Rome, Georgia.
         </p>
         <div class="hero-buttons">
-            <a href="#buy" class="btn btn-primary">Get the Tour Map — $0.99</a>
-            <a href="#locations" class="btn btn-outline">Preview Locations</a>
+            <a href="#buy" class="btn btn-primary" onclick="gtag('event', 'click', {
+       'event_category': 'Buy top',
+       'event_label': 'Buy click on top'
+   });">Get the Tour Map — $0.99</a>
+            <a href="#locations" class="btn btn-outline" onclick="gtag('event', 'click', {
+       'event_category': 'Preview Locations',
+       'event_label': 'Preview Locations click'
+   });">Preview Locations</a>
         </div>
         <p class="hero-note">Instant digital download • Google Maps pins included</p>
     </div>
@@ -195,7 +231,7 @@
             Filming locations are public places in Rome, Georgia.
         </p>
         <div class="footer-links">
-        <a href="terms.html">Terms and conditions</a>
+            <a href="terms.html">Terms and conditions</a>
         </div>
     </div>
 </footer>
