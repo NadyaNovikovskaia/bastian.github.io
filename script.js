@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeCarousel();
     initializeTabSwitching();
     initializeCTAButtons();
+    initializeEventTracking();
 });
 
 // ===== CAROUSEL FUNCTIONS =====
@@ -118,6 +119,11 @@ function goToReview(index) {
 
 // ===== SCROLL TO DEMO =====
 function scrollToDemo() {
+    trackEvent('check_guides_click', {
+        button_text: 'Check Our Guides',
+        trigger: 'scroll_to_demo'
+    });
+    
     const demoSection = document.getElementById('demo');
     if (demoSection) {
         demoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -141,6 +147,11 @@ function initializeTabSwitching() {
 
 // ===== SCROLL TO CTA =====
 function scrollToCTA() {
+    trackEvent('buy_guide_scroll_click', {
+        button_text: 'Buy Guide - $7',
+        trigger: 'scroll_to_cta'
+    });
+    
     const ctaSection = document.querySelector('.cta-section');
     if (ctaSection) {
         ctaSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -214,18 +225,269 @@ Contact us at: hello@bastian.app
 'color: #757575; font-size: 12px;'
 );
 
-// ===== ANALYTICS SIMULATION (Replace with real analytics) =====
+// ===== ANALYTICS & EVENT TRACKING =====
+
+// Helper function to send events to Google Analytics
+function trackEvent(eventName, eventParams = {}) {
+    // Send to Google Analytics
+    if (typeof gtag !== 'undefined') {
+        gtag('event', eventName, eventParams);
+        console.log('GA Event:', eventName, eventParams);
+    }
+    
+    // Send to Clarity (custom tags)
+    if (typeof clarity !== 'undefined') {
+        clarity('set', eventName, JSON.stringify(eventParams));
+        console.log('Clarity Event:', eventName, eventParams);
+    }
+}
+
+// Track page view
 function trackPageView() {
-    console.log('Page view tracked');
+    trackEvent('page_view', {
+        page_title: document.title,
+        page_location: window.location.href
+    });
 }
 
-function trackCTAClick(ctaType) {
-    console.log(`CTA clicked: ${ctaType}`);
+// ===== EVENT TRACKING INITIALIZATION =====
+function initializeEventTracking() {
+    // Track all Buy buttons
+    trackBuyButtons();
+    
+    // Track all Download buttons
+    trackDownloadButtons();
+    
+    // Track navigation links
+    trackNavigationLinks();
+    
+    // Track audio players
+    trackAudioPlayers();
+    
+    // Track story title cards
+    trackStoryCards();
+    
+    // Track carousel interactions
+    trackCarouselInteractions();
+    
+    // Track review carousel
+    trackReviewCarousel();
 }
 
-function trackAudioPlay(guideTitle) {
-    console.log(`Audio played: ${guideTitle}`);
+// Track Buy buttons (specific for buy buttons)
+function trackBuyButtons() {
+    const buyButtons = document.querySelectorAll('.btn-buy, .btn-primary');
+    
+    buyButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Get guide name from parent card
+            const guideCard = this.closest('.guide-card');
+            let guideName = 'Unknown';
+            
+            if (guideCard) {
+                const titleElement = guideCard.querySelector('.guide-title');
+                guideName = titleElement ? titleElement.textContent : 'Unknown';
+            }
+            
+            trackEvent('buy_button_click', {
+                button_text: this.textContent.trim(),
+                guide_name: guideName,
+                button_location: guideCard ? 'guide_section' : 'hero_section'
+            });
+        });
+    });
 }
+
+// Track Download buttons (specific for download buttons)
+function trackDownloadButtons() {
+    const downloadButtons = document.querySelectorAll('.btn-download, .btn-primary-small');
+    
+    downloadButtons.forEach(button => {
+        // Skip if it's already been handled by buy buttons
+        if (button.classList.contains('btn-primary') || button.classList.contains('btn-buy')) {
+            return;
+        }
+        
+        button.addEventListener('click', function() {
+            const buttonText = this.textContent.trim();
+            const section = this.closest('section') || this.closest('nav');
+            let location = 'unknown';
+            
+            if (section) {
+                if (section.classList.contains('navbar')) {
+                    location = 'navbar';
+                } else if (section.classList.contains('hero')) {
+                    location = 'hero';
+                } else if (section.classList.contains('cta-section')) {
+                    location = 'cta_section';
+                }
+            }
+            
+            trackEvent('download_button_click', {
+                button_text: buttonText,
+                button_location: location
+            });
+        });
+    });
+}
+
+// Track navigation links
+function trackNavigationLinks() {
+    const navLinks = document.querySelectorAll('.nav-links a:not(button)');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            trackEvent('navigation_click', {
+                link_text: this.textContent.trim(),
+                link_href: this.getAttribute('href')
+            });
+        });
+    });
+}
+
+// Track audio players
+function trackAudioPlayers() {
+    const audioElements = document.querySelectorAll('audio');
+    
+    audioElements.forEach(audio => {
+        const guideCard = audio.closest('.guide-card');
+        let guideName = 'Unknown';
+        
+        if (guideCard) {
+            const titleElement = guideCard.querySelector('.guide-title');
+            guideName = titleElement ? titleElement.textContent : 'Unknown';
+        }
+        
+        // Track play
+        audio.addEventListener('play', function() {
+            trackEvent('audio_play', {
+                guide_name: guideName,
+                audio_src: this.querySelector('source')?.src || 'unknown'
+            });
+        });
+        
+        // Track pause
+        audio.addEventListener('pause', function() {
+            trackEvent('audio_pause', {
+                guide_name: guideName,
+                current_time: Math.round(this.currentTime)
+            });
+        });
+        
+        // Track completion
+        audio.addEventListener('ended', function() {
+            trackEvent('audio_complete', {
+                guide_name: guideName
+            });
+        });
+    });
+}
+
+// Track story title cards in hero
+function trackStoryCards() {
+    const storyCards = document.querySelectorAll('.story-title-card');
+    
+    storyCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            const storyName = this.querySelector('.story-name')?.textContent || 'Unknown';
+            
+            trackEvent('story_card_click', {
+                story_name: storyName,
+                link_href: this.getAttribute('href')
+            });
+        });
+    });
+}
+
+// Track carousel interactions
+function trackCarouselInteractions() {
+    const prevButtons = document.querySelectorAll('.app-carousel .carousel-btn.prev');
+    const nextButtons = document.querySelectorAll('.app-carousel .carousel-btn.next');
+    const dots = document.querySelectorAll('.app-carousel .carousel-dots .dot');
+    
+    prevButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            trackEvent('carousel_interaction', {
+                action: 'previous',
+                carousel_type: 'app_screenshots'
+            });
+        });
+    });
+    
+    nextButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            trackEvent('carousel_interaction', {
+                action: 'next',
+                carousel_type: 'app_screenshots'
+            });
+        });
+    });
+    
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+            trackEvent('carousel_interaction', {
+                action: 'dot_click',
+                slide_index: index,
+                carousel_type: 'app_screenshots'
+            });
+        });
+    });
+}
+
+// Track review carousel
+function trackReviewCarousel() {
+    const reviewPrevButtons = document.querySelectorAll('.reviews-carousel .carousel-btn.prev');
+    const reviewNextButtons = document.querySelectorAll('.reviews-carousel .carousel-btn.next');
+    const reviewDots = document.querySelectorAll('.reviews-dots .dot');
+    
+    reviewPrevButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            trackEvent('carousel_interaction', {
+                action: 'previous',
+                carousel_type: 'reviews'
+            });
+        });
+    });
+    
+    reviewNextButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            trackEvent('carousel_interaction', {
+                action: 'next',
+                carousel_type: 'reviews'
+            });
+        });
+    });
+    
+    reviewDots.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+            trackEvent('carousel_interaction', {
+                action: 'dot_click',
+                review_index: index,
+                carousel_type: 'reviews'
+            });
+        });
+    });
+}
+
+// Track "Check Our Guides" button
+const checkGuidesButtons = document.querySelectorAll('.btn-secondary');
+checkGuidesButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+        trackEvent('check_guides_click', {
+            button_text: this.textContent.trim()
+        });
+    });
+});
+
+// Track footer links
+document.querySelectorAll('.footer a').forEach(link => {
+    link.addEventListener('click', function(e) {
+        trackEvent('footer_link_click', {
+            link_text: this.textContent.trim(),
+            link_href: this.getAttribute('href')
+        });
+    });
+});
 
 // Track initial page view
 trackPageView();
