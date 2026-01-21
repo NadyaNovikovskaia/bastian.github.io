@@ -5,8 +5,6 @@ code.md
 landing-content-spec.md
 
 # Exclude audio files (too large for git)
-audio/
-*.mp3
 
 # Exclude test files
 audio-test.html
