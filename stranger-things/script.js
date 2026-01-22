@@ -141,43 +141,35 @@ function trackCTASection() {
 
 // Track Stripe Buy Button
 function trackStripeButton() {
-    // Monitor for Stripe button clicks
-    const checkStripeButton = setInterval(() => {
-        const stripeButton = document.querySelector('stripe-buy-button');
-        if (stripeButton) {
-            // Listen for clicks on the shadow DOM content
-            stripeButton.addEventListener('click', function() {
-                trackEvent('stripe_buy_button_click', {
-                    button_text: 'Get the Tour Map $0.99',
-                    button_location: 'cta_section',
-                    product_price: '$0.99'
-                });
-            });
-            
-            // Also try to track the internal button
-            setTimeout(() => {
-                const shadowRoot = stripeButton.shadowRoot;
-                if (shadowRoot) {
-                    const internalButton = shadowRoot.querySelector('button');
-                    if (internalButton) {
-                        internalButton.addEventListener('click', function() {
-                            trackEvent('stripe_buy_button_click', {
-                                button_text: 'Get the Tour Map $0.99',
-                                button_location: 'cta_section',
-                                product_price: '$0.99',
-                                trigger: 'shadow_dom'
-                            });
-                        });
-                    }
-                }
-            }, 1000);
-            
-            clearInterval(checkStripeButton);
+   const wrapper = document.getElementById('stripe-buy-button-wrapper');
+    if (!wrapper) return;
+
+    let tracked = false;
+
+    wrapper.addEventListener(
+      'pointerdown',
+      function () {
+        if (tracked) return;
+        tracked = true;
+
+        if (typeof trackEvent === 'function') {
+          trackEvent('begin_checkout', {
+            button_text: 'Get the Tour Map',
+            button_location: 'cta_section',
+            value: 0.99,
+            currency: 'USD',
+            provider: 'stripe'
+          });
+        } else if (typeof gtag === 'function') {
+          gtag('event', 'begin_checkout', {
+            value: 0.99,
+            currency: 'USD',
+            payment_method: 'stripe'
+          });
         }
-    }, 500);
-    
-    // Stop checking after 10 seconds
-    setTimeout(() => clearInterval(checkStripeButton), 10000);
+      },
+      { passive: true }
+    );
 }
 
 // Track Footer Links
