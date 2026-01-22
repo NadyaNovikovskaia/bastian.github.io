@@ -66,7 +66,6 @@ function initializeEventTracking() {
     trackStripeButton();
     trackFooterBuyButton();
     trackExploreLocationsButton();
-    trackQRCode();
 }
 
 // --- Hero Buttons ---
@@ -124,25 +123,23 @@ function trackCTASection() {
 
 // --- Stripe Button (Middle of Page) ---
 function trackStripeButton() {
-   const wrapper = document.getElementById('stripe-buy-button-wrapper');
-    if (!wrapper) return;
+    const buyButtons = document.querySelectorAll('.btn-buy, .btn-primary');
 
-    let tracked = false;
+    buyButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const paymentUrl = button.dataset.paymentLink;
+            if (!paymentUrl) return;
 
-    wrapper.addEventListener(
-      'pointerdown',
-      function () {
-        if (tracked) return;
-        tracked = true;
+            trackEvent('buy_button_click', {
+                button_text: this.textContent.trim(),
+                guide_name: 'Stranger Things Fan Guide',
+                price: 8.49,
+            });
 
-          trackEvent('begin_checkout', {
-            button_text: 'Get the Tour Map',
-            button_location: 'middle',
-            value: 8.49,
-            currency: 'USD',
-            provider: 'stripe'
-          });
-    }, { passive: true });
+            // 🔗 Открываем Payment Link в новой вкладке
+            window.open(paymentUrl, '_blank');
+        });
+    });
 }
 
 // --- Footer Buy Button ---

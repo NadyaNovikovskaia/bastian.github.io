@@ -36,38 +36,6 @@
 
         console.log('📊 Stranger Things - Google Analytics initialized: G-99MHLJW6TW');
     </script>
-    <script async
-            src="https://js.stripe.com/v3/buy-button.js">
-    </script>
-
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-        (function (m, e, t, r, i, k, a) {
-            m[i] = m[i] || function () {
-                (m[i].a = m[i].a || []).push(arguments)
-            };
-            m[i].l = 1 * new Date();
-            for (var j = 0; j < document.scripts.length; j++) {
-                if (document.scripts[j].src === r) {
-                    return;
-                }
-            }
-            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
-        })(window, document, 'script', 'https://mc.webvisor.org/metrika/tag_ww.js?id=106374648', 'ym');
-        ym(106374648, 'init', {
-            ssr: true,
-            webvisor: true,
-            clickmap: true,
-            ecommerce: "dataLayer",
-            accurateTrackBounce: true,
-            trackLinks: true
-        });
-    </script>
-    <noscript>
-        <div><img src="https://mc.yandex.ru/watch/106374648" style="position:absolute; left:-9999px;" alt=""/></div>
-    </noscript>
-
-    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
 </head>
 <body>
 <div class="noise-overlay"></div>
@@ -90,11 +58,6 @@
             <a href="#introduction" class="btn btn-outline" id="hero-preview-btn">Preview</a>
         </div>
         <p class="hero-note">Instant digital download • Google Maps pins included</p>
-    </div>
-    <div class="scroll-indicator">
-        <div class="scroll-mouse">
-            <div class="scroll-dot"></div>
-        </div>
     </div>
 </section>
 
@@ -292,11 +255,7 @@
                 and insider tips for the ultimate Stranger Things experience.
             </p>
 
-            <h2 class="cta-title">Get the Guide — $8.49</h2>
-            <stripe-buy-button
-                    buy-button-id="buy_btn_1Ss0IsLGIbUzVgMYXiGzlNJn"
-                    publishable-key="pk_live_51SaFsxLGIbUzVgMYcSh6HtlPFcznUZS8iEmIUhwuaIWReIDgIciwLJmC3TVjx28Is8rbLEaeblSogYvf2WHFqbNq00C6F9ijcV">
-            </stripe-buy-button>
+            <button class="btn btn-primary" data-payment-link="https://buy.stripe.com/3cI4gAaeE3bKcql0zX4wM01">Buy $8.49</button>
             <p class="cta-note">Instant digital delivery • No account required</p>
         </div>
     </div>
