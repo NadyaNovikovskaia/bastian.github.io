@@ -525,6 +525,13 @@ h1, h2, h3, .font-display {
   color: var(--primary);
 }
 
+.qr-code {
+  max-width: 60%;
+  height: auto;
+  display: block;
+  margin: 0 auto 32px;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .hero-buttons {
