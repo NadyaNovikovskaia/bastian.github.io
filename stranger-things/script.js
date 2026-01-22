@@ -76,7 +76,9 @@ function trackHeroButtons() {
         heroBuyBtn.addEventListener('click', function() {
             trackEvent('scroll_to_buy', {
                 button_text: this.textContent.trim(),
-                button_location: 'hero_section'
+                button_location: 'hero_section',
+                button_type: 'primary',
+                price: '$8.49'
             });
         });
     }
@@ -87,6 +89,18 @@ function trackHeroButtons() {
             trackEvent('scroll_to_locations', {
                 button_text: this.textContent.trim(),
                 button_location: 'hero_section'
+            });
+        });
+    }
+    
+    // Location button (Google Maps)
+    const locationBtn = document.getElementById('location-btn');
+    if (locationBtn) {
+        locationBtn.addEventListener('click', function(e) {
+            trackEvent('location_button_click', {
+                location_name: 'Gwinnett Place Mall',
+                location_address: 'Duluth, GA',
+                button_text: this.textContent.trim()
             });
         });
     }
@@ -258,6 +272,230 @@ window.addEventListener('scroll', () => {
     scrollTimeout = setTimeout(trackScrollDepth, 100);
 });
 
+// ===== LOCATION CAROUSEL =====
+let currentLocationSlide = 0;
+
+function nextLocationSlide() {
+    const slides = document.querySelectorAll('.location-carousel .carousel-slide');
+    const dots = document.querySelectorAll('.location-carousel .carousel-dots .dot');
+    
+    if (slides.length === 0) return;
+    
+    slides[currentLocationSlide].classList.remove('active');
+    if (dots[currentLocationSlide]) dots[currentLocationSlide].classList.remove('active');
+    
+    currentLocationSlide = (currentLocationSlide + 1) % slides.length;
+    
+    slides[currentLocationSlide].classList.add('active');
+    if (dots[currentLocationSlide]) dots[currentLocationSlide].classList.add('active');
+    
+    trackEvent('carousel_interaction', {
+        action: 'next',
+        carousel_type: 'location_photos',
+        slide_index: currentLocationSlide
+    });
+}
+
+function prevLocationSlide() {
+    const slides = document.querySelectorAll('.location-carousel .carousel-slide');
+    const dots = document.querySelectorAll('.location-carousel .carousel-dots .dot');
+    
+    if (slides.length === 0) return;
+    
+    slides[currentLocationSlide].classList.remove('active');
+    if (dots[currentLocationSlide]) dots[currentLocationSlide].classList.remove('active');
+    
+    currentLocationSlide = (currentLocationSlide - 1 + slides.length) % slides.length;
+    
+    slides[currentLocationSlide].classList.add('active');
+    if (dots[currentLocationSlide]) dots[currentLocationSlide].classList.add('active');
+    
+    trackEvent('carousel_interaction', {
+        action: 'previous',
+        carousel_type: 'location_photos',
+        slide_index: currentLocationSlide
+    });
+}
+
+function goToLocationSlide(index) {
+    const slides = document.querySelectorAll('.location-carousel .carousel-slide');
+    const dots = document.querySelectorAll('.location-carousel .carousel-dots .dot');
+    
+    if (slides.length === 0) return;
+    
+    slides[currentLocationSlide].classList.remove('active');
+    if (dots[currentLocationSlide]) dots[currentLocationSlide].classList.remove('active');
+    
+    currentLocationSlide = index;
+    
+    slides[currentLocationSlide].classList.add('active');
+    if (dots[currentLocationSlide]) dots[currentLocationSlide].classList.add('active');
+    
+    trackEvent('carousel_interaction', {
+        action: 'dot_click',
+        carousel_type: 'location_photos',
+        slide_index: currentLocationSlide
+    });
+}
+
+// ===== MODAL WINDOW =====
+function openModal() {
+    const modal = document.getElementById('read-modal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        trackEvent('read_story_opened', {
+            story_name: 'Starcourt Mall'
+        });
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById('read-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+function openIntroModal() {
+    const modal = document.getElementById('intro-modal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        trackEvent('read_story_opened', {
+            story_name: 'Introduction'
+        });
+    }
+}
+
+function closeIntroModal() {
+    const modal = document.getElementById('intro-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeModal();
+        closeIntroModal();
+    }
+});
+
+// ===== AUDIO PLAYERS =====
+function initializeAudioPlayers() {
+    // Introduction Audio
+    const introBtn = document.getElementById('intro-audio-btn');
+    const introAudio = document.getElementById('intro-audio');
+    
+    if (introBtn && introAudio) {
+        introBtn.addEventListener('click', function() {
+            const playIcon = this.querySelector('.play-icon');
+            const pauseIcon = this.querySelector('.pause-icon');
+            
+            if (introAudio.paused) {
+                introAudio.play();
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+                this.classList.add('playing');
+                
+                trackEvent('audio_play', {
+                    audio_type: 'guide_introduction',
+                    audio_name: 'Stranger Things Introduction'
+                });
+            } else {
+                introAudio.pause();
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+                this.classList.remove('playing');
+                
+                trackEvent('audio_pause', {
+                    audio_type: 'guide_introduction',
+                    current_time: Math.round(introAudio.currentTime)
+                });
+            }
+        });
+        
+        introAudio.addEventListener('ended', function() {
+            const playIcon = introBtn.querySelector('.play-icon');
+            const pauseIcon = introBtn.querySelector('.pause-icon');
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+            introBtn.classList.remove('playing');
+            
+            trackEvent('audio_complete', {
+                audio_type: 'guide_introduction'
+            });
+        });
+    }
+    
+    // Mall Location Audio
+    const mallBtn = document.getElementById('mall-audio-btn');
+    const mallAudio = document.getElementById('mall-audio');
+    
+    if (mallBtn && mallAudio) {
+        mallBtn.addEventListener('click', function() {
+            const playIcon = this.querySelector('.play-icon');
+            const pauseIcon = this.querySelector('.pause-icon');
+            
+            if (mallAudio.paused) {
+                mallAudio.play();
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+                this.classList.add('playing');
+                
+                trackEvent('audio_play', {
+                    audio_type: 'location',
+                    audio_name: 'Starcourt Mall',
+                    location_name: 'Gwinnett Place Mall'
+                });
+            } else {
+                mallAudio.pause();
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+                this.classList.remove('playing');
+                
+                trackEvent('audio_pause', {
+                    audio_type: 'location',
+                    location_name: 'Gwinnett Place Mall',
+                    current_time: Math.round(mallAudio.currentTime)
+                });
+            }
+        });
+        
+        mallAudio.addEventListener('ended', function() {
+            const playIcon = mallBtn.querySelector('.play-icon');
+            const pauseIcon = mallBtn.querySelector('.pause-icon');
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+            mallBtn.classList.remove('playing');
+            
+            trackEvent('audio_complete', {
+                audio_type: 'location',
+                location_name: 'Gwinnett Place Mall'
+            });
+        });
+    }
+}
+
+// Initialize Read Button
+function initializeReadButton() {
+    const readBtn = document.getElementById('read-btn');
+    if (readBtn) {
+        readBtn.addEventListener('click', openModal);
+    }
+    
+    const readIntroBtn = document.getElementById('read-intro-btn');
+    if (readIntroBtn) {
+        readIntroBtn.addEventListener('click', openIntroModal);
+    }
+}
+
 // --- Smooth Scroll for Anchors ---
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -304,5 +542,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         initializeAnalytics();
         initializeEventTracking();
+        initializeAudioPlayers();
+        initializeReadButton();
     }, 500);
 });
